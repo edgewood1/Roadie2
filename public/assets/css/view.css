@@ -53,3 +53,7 @@ a {
 #landNavbar {
     font-size: larger;
 }
+
+#container {
+    margin-left: 5%;
+}

@@ -15,8 +15,8 @@ var postCategorySelect = $("#category");
 
 $(function datePicker() {
       $(".datepicker").datepicker({
+        dateFormat: 'mm-dd-yy',
           showButtonPanel: true
-    
         });
     });
 

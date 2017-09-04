@@ -17,7 +17,7 @@ module.exports = function(app) {
 app.get("/api/posts3/:id", function(req, res) {
   db.Post.findAll({
     where: {
-      id : req.params.id
+      begin_date : req.params.id
     }
   })
   .then(function(data){
