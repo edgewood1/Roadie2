@@ -60,6 +60,9 @@ $(document).ready(function () {
                 }
             }
             console.log(newArr)
+
+            // creates the table header - 
+
             var row5 = $("<th>").text("#")
             var row6 = $("<th>").text("Main Destination")
             var row7 = $("<th>").text("Begin Date")
@@ -72,54 +75,112 @@ $(document).ready(function () {
 
         newArr.map(function (item, index, array) {
            
-            // var r = $("<a>").text(item.place + "  " + item.begin_date).attr("id", index).css("font-size", "20px").on("click", holler);
-            var row8 = $("<tr>").attr("id", index).click({param: item.begin_date}, holler)
-            var row9 = $("<td>").text(item.id);
-            var row10 = $("<td>").text(item.place);
-            var row11 = $("<td>").text(item.begin_date);
+            // body for table 1
+
+            row8 = $("<tr>").attr("id", index).click({param: item.begin_date}, holler)
+            row9 = $("<td>").text(item.id);
+            row10 = $("<td>").text(item.place);
+            row11 = $("<td>").text(item.begin_date);
             blogContainer.append(row8)
             $("#" + index).append(row9, row10, row11)
-
         })
-
-
     }
 
     function holler(e) {
-        blogContainer.hide();
+        // blogContainer.hide();
        console.log(e.data.param) // this grabs the id in the object
         console.log(this.id);  // this grabs the id of the html
         var id=e.data.param;
-        // JSON.stringify(id);
-        // var id=this.id
-        //x=e.target.id;
-        $("#header_row").hide();
+
+        // second call 
+
         $.get("/api/posts3/"+id, function(data) {
-            console.log(data)
+
+            // title for table 2 
+
             $("#place1").text(data[0].place)
             $("#begin").text(data[0].begin_date)
             $("#to").text(" to ")
             $("#end").text(data[0].end_date) 
-            var a= $("#begin_panels")
-            a.html("<div>").addClass("row")
-            for (i=0; i<data.length; i++){
+            blogContainer.empty();
+
+            // header for table 2
             
-            var v = $("<div>")
-            var w = $("<div>").addClass("col-md-2")
-            var x = $("<div>").addClass("panel panel-default").css("background-color","blue").addClass("col-m-2")
-            var y = $("<div>").addClass("panel-heading").text(data[i].event_name)
-            var z= $("<div>").addClass("panel-body").text(data[i].event_date)
-            var z1= $("<div>").addClass("panel-footer").text(data[i].event_note)
-            a.append(v)
-            v.append(w)
-            w.append(x)
-            x.append(y)
-            y.append(z)
-            z.append(z1)
-            }
-        //    var now=$("<div>").addClass("panel panel-default").css("background-color","blue")
-        //    var now1=$("<div>").addClass("panel-heading").text("howdy")
-        //    a.append(now, now1)
+                $("#header_row").empty()
+
+                var row5 = $("<th>").text("#")
+                var row6 = $("<th>").text("Date")
+                var row7 = $("<th>").text("Local Attraction")
+                var row8 = $("<th>").text("Notes")
+                $("#header_row").append(row5, row6, row7, row8)
+                // table_creator(newArr);
+            
+            // body for table 2
+            
+            data.map(function(item, index) { 
+                
+                row8 = $("<tr>").attr("id", index).click({param: item.begin_date}, holler)
+                var row9 = $("<td>").text(item.id);
+                var row10 = $("<td>").text(item.event_date);
+                var row11 = $("<td>").text(item.event_name);
+                var row12 = $("<td>").text(item.event_notes);
+                var row13 = $("<button>").text("delete").click({param: item.id}, rid)
+                blogContainer.append(row8)
+                $("#" + index).append(row9, row10, row11, row12, row13)
+            })
+            $("#addMore").show()
+                // 
+                $("#cms").on("submit", handleFormSubmit);
+
+
+                // 3 This function does an API call to delete posts
+function rid(e) {
+    console.log(e.data.param)
+    $.ajax({
+      method: "DELETE",
+      url: "/api/posts2/" + e.data.param
+    }).then(function() {
+      console.log("We delete");
+      // getPosts(postCategorySelect.val());
+    //   window.location.href = "/add";
+      holler(e)
+    });
+  }
+                
+                
+                
+                  function handleFormSubmit() {
+                    event.preventDefault();
+                
+                  
+                    // Constructing a newPost object to hand to the database
+                    newPost = {
+                
+                      place: data[0].place,
+                
+                      begin_date: data[0].begin_date,
+                
+                      end_date: data[0].end_date,
+                
+                      event_note: $("#event_note").val(),
+                
+                      event_date: $("#event_date").val(),
+                
+                      event_name: $("#event_name").val()
+                
+                
+                    }
+                
+                
+                    $.post("/api/posts", newPost, function () {
+                    //   window.location.href = "javascript:window.location.reload();";
+                      // createNewRow(post);
+                      holler(e)
+                    })
+ 
+                
+                
+                  }
         })
      }
 
