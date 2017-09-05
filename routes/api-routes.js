@@ -17,8 +17,9 @@ module.exports = function(app) {
 app.get("/api/posts3/:id", function(req, res) {
   db.Post.findAll({
     where: {
-      begin_date : req.params.id
-    }
+      begin_date : req.params.id, 
+    }, 
+    order: ["event_date"]
   })
   .then(function(data){
     res.json(data);
