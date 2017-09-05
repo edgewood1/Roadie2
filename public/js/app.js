@@ -3,7 +3,7 @@ $('document').ready(function() {
   var AUTH0_DOMAIN = "meldejesus.auth0.com";
   var AUTH0_CLIENT_ID = "yUrxNF8j6H6l4kB4ahlKDeMamO6fx00l";
   // var AUTH0_CALLBACK_URL = "http://localhost:3000/add";
-  var AUTH0_CALLBACK_URL = "https://roadie2017.herokuapp.com/add";
+  var AUTH0_CALLBACK_URL = "https://roadie2.herokuapp.com/add";
 
   var webAuth = new auth0.WebAuth({
       domain: AUTH0_DOMAIN,
