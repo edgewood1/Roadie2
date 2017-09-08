@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+var client_secret = 'uLayNG7YwkL6RppGixQAYXsCfh0KT9bqgu6iIKtZMre3dMbPF3-n4Ti7QD0LtBXu'
+
 // Static directory
 app.use(express.static("./public"));
 

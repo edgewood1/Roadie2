@@ -1,5 +1,5 @@
-
-$('document').ready(function() {
+window.addEventListener('load', function() {
+  
   var AUTH0_DOMAIN = "meldejesus.auth0.com";
   var AUTH0_CLIENT_ID = "yUrxNF8j6H6l4kB4ahlKDeMamO6fx00l";
   // var AUTH0_CALLBACK_URL = "http://localhost:3000/add";
