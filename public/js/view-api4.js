@@ -38,13 +38,8 @@ $(document).ready(function () {
   
 
   $("#addMore").hide();
-
- 
-
   getPosts();
 
-  // VIEW-UPDATE.HTML
-  
   // 1. GET LIST OF ALL CITIES AND THEIR BEGIN_DATE
   // Display a list of cities; user will pick one which will move user to function 2
 
